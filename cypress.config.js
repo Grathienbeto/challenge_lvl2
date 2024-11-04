@@ -7,8 +7,6 @@ module.exports = defineConfig({
 
   // variables de entorno
   env: {
-    user: "Prueba1234",
-    password: "prueba1234!",
     baseUrl: "https://automationexercise.com",
   },
 
