@@ -7,6 +7,7 @@ export class SignupPage {
   getName() {
     return cy.get(this.name)
   }
+  
   getEmail() {
     return cy.get(this.email)
   }

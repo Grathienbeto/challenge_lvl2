@@ -16,6 +16,12 @@ export class SignupLoginPage {
   }
 
   // Metodos
+  
+  /**
+   * Crea una nueva cuenta de usuario
+   * @param {string} name 
+   * @param {string} email 
+   */
   newUserSignUp(name, email) {
     this.getNewUserNameInput().type(name)
     this.getNewUserEmailInput().type(email)
