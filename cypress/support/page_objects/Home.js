@@ -32,15 +32,39 @@ export class Home {
 
       onCart.getCartItem().eq(1).find('.cart_description a').then($cartItem =>{
         let cartItem = $cartItem.text()
-        
-        this.compareItemNames(itemName, cartItem)
+
+        expect(itemName.trim()).to.equal(cartItem.trim())
       })
     })
   }
 
-  compareItemNames(name1, name2){
-    expect(name1.trim()).to.equal(name2.trim())
+  /**
+   * Verifica que las tarjetas de los productos tengan 
+   * las mismas dimensiones
+   */
+  checkIfAllCardsHaveSameDimensions(number=0, height=0, width=0){
+    let expectedHeight = 0 || height
+    let expectedWidth = 0 || width
+
+    this.getFeaturedProducts().eq(number).then($element => {
+
+      if (number == 0) {
+        expectedHeight = $element.height()
+        expectedWidth = $element.width()
+        console.log(expectedHeight)
+        console.log(expectedWidth)
+      }
+
+      else {
+        expect($element.height()).to.equal(expectedHeight)
+        expect($element.width()).to.equal(expectedWidth)
+      } 
+
+      number++
+      this.checkIfAllCardsHaveSameDimensions(number, expectedHeight, expectedWidth)
+    })
   }
+  
 }
 
 export const onHome = new Home()
