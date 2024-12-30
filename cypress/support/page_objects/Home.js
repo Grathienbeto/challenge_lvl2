@@ -14,10 +14,11 @@ export class Home {
     return cy.get(this.modalContent)
   }
 
+  // Metodos
   /**
-   * Agregar un item al carrito
-   * Una vez agregado, va a la pagina del carrito mediante el modal
-   * Extra el nombre del item del carrito y lo compara con la del producto agregado
+   * Agrega un item al carrito
+   * Luego se dirige a la pagina del carrito mediante el modal
+   * Extrae el nombre del item del carrito y lo compara con la del producto agregado
    * @param {int} number 
    */
   addItemToCart(number){
@@ -32,36 +33,41 @@ export class Home {
 
       onCart.getCartItem().eq(1).find('.cart_description a').then($cartItem =>{
         let cartItem = $cartItem.text()
-
         expect(itemName.trim()).to.equal(cartItem.trim())
       })
+
     })
   }
 
   /**
-   * Verifica que las tarjetas de los productos tengan 
-   * las mismas dimensiones
+   * Verifica que las tarjetas de los productos tengan las mismas dimensiones, comparandolos con la primer tarjeta.
+   * Parametros son principalmente para la recursividad.
    */
-  checkIfAllCardsHaveSameDimensions(number=0, height=0, width=0){
+  checkIfAllCardsHaveSameDimensions(index=0, height=0, width=0){
     let expectedHeight = 0 || height
     let expectedWidth = 0 || width
 
-    this.getFeaturedProducts().eq(number).then($element => {
+    this.getFeaturedProducts().eq(index).then($element => {
 
-      if (number == 0) {
+      // Guarda el tamaño de la primera tarjeta y la guarda como referencia para el resto.
+      if (index == 0) {
         expectedHeight = $element.height()
         expectedWidth = $element.width()
-        console.log(expectedHeight)
-        console.log(expectedWidth)
       }
-
       else {
         expect($element.height()).to.equal(expectedHeight)
         expect($element.width()).to.equal(expectedWidth)
       } 
 
-      number++
-      this.checkIfAllCardsHaveSameDimensions(number, expectedHeight, expectedWidth)
+      index++
+
+      if (index >= 34) {
+        return true
+      }
+      else {
+        this.checkIfAllCardsHaveSameDimensions(index, expectedHeight, expectedWidth)
+      }
+
     })
   }
   
