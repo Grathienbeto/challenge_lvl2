@@ -15,6 +15,18 @@ export class Home {
   }
 
   // Metodos
+
+  // Comunes
+  /**
+   * Se dirije a la pagina de producto de un item {index}
+   * @param {int} index 
+   */
+  goToItemPage(index) {
+    index -= 1
+    this.getFeaturedProducts().eq(index).find('a').contains('View Product').click()
+  }
+
+  // Pruebas
   /**
    * Agrega un item al carrito
    * Luego se dirige a la pagina del carrito mediante el modal
@@ -39,6 +51,7 @@ export class Home {
     })
   }
 
+
   /**
    * Verifica que las tarjetas de los productos tengan las mismas dimensiones, comparandolos con la primer tarjeta.
    * Parametros son principalmente para la recursividad.
@@ -49,7 +62,7 @@ export class Home {
 
     this.getFeaturedProducts().eq(index).then($element => {
 
-      // Guarda el tamaño de la primera tarjeta y la guarda como referencia para el resto.
+      // Toma el tamaño de la primera tarjeta y la guarda como referencia para el resto.
       if (index == 0) {
         expectedHeight = $element.height()
         expectedWidth = $element.width()
@@ -70,7 +83,8 @@ export class Home {
 
     })
   }
-  
+
+
 }
 
 export const onHome = new Home()
