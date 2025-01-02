@@ -6,7 +6,7 @@ import { onSignupPage } from "../../support/page_objects/SignupPage";
 
 describe("Happy path tests", () => {
 
-  // DATOS DE PRUEBA COMUNES (HACERLOS DE ENVIRONMENT)
+  // DATOS DE PRUEBA COMUNES (HACERLOS DE ENVIRONMENT) usados de momento en 1 y 3
   const name = "Juan Jose Martinez"
   const email = "Jjmartinez@prueba.com"
 
@@ -15,7 +15,6 @@ describe("Happy path tests", () => {
   });
 
   it("1. Crear cuenta de usuario", () => {
-
     // Pasos
     navigateTo.signupLoginPage()
     onSignupLoginPage.newUserSignUp(name, email)
@@ -47,9 +46,13 @@ describe("Happy path tests", () => {
     const productItem = 3
     const review = "This is a test review"
 
+    // Pasos
     onHome.goToItemPage(productItem)
     onProductReview.leaveReview(name, email, review)
+
+    // Assertions
     onProductReview.getReviewModal().should('exist')
+    // agregar assertion sobre el texto
   })
 
 })
