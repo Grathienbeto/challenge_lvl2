@@ -13,7 +13,7 @@ describe("UnHappy path tests", () => {
     onHome.checkIfAllCardsHaveSameDimensions()
   })
 
-  it.only('12. Agregar cantidades negativas de un producot, desde la pagina del producto', () => {
+  it('12. Agregar cantidades negativas de un producot, desde la pagina del producto', () => {
     // Pasos
     onHome.goToItemPage(1)
     onProductReview.addItemToCart(-1)
