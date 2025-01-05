@@ -2,6 +2,7 @@ import { onCart } from "../../support/page_objects/Cart";
 import { onHome } from "../../support/page_objects/Home";
 import { navigateTo } from "../../support/page_objects/Navigate";
 import { onProductReview } from "../../support/page_objects/ProductReview";
+import { onProductsPage } from "../../support/page_objects/ProductsPage";
 
 describe("UnHappy path tests", () => {
 
@@ -25,6 +26,22 @@ describe("UnHappy path tests", () => {
     })
   })
 
-  it.only('13. ', () => {})
+  it.only('13. Encontrar productos usando el buscador.', () => {
+    let product = 'dress'
+
+    navigateTo.productsPage()
+    onProductsPage.searchProducts(product)
+
+    cy.wait(500)
+
+    onProductsPage.getFeaturedItems().find('[class="col-sm-4"]').each($product => {
+      cy.wrap($product).find('p').first().then($tag => {
+        let itemText = $tag.text().trim()
+        expect(itemText.toLowerCase()).to.contain(product)
+      })
+    })
+    
+    
+  })
 
 })

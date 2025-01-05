@@ -41,7 +41,7 @@ export class SignupLoginPage {
   }
 
   /**
-  * Loguea en una cuenta ya creada con datos correctos
+  * Loguea en una cuenta
   * @param {str} email 
   * @param {str} password 
   */

@@ -1,7 +1,6 @@
 import { onCart } from "./Cart"
 
 export class Home {
-
   // Atributos
   featuredProducts = '.features_items .col-sm-4 .product-image-wrapper'
   modalContent = '.modal-content'
@@ -54,7 +53,6 @@ export class Home {
 
     })
   }
-
 
   /**
    * Verifica que las tarjetas de los productos tengan las mismas dimensiones, comparandolos con la primer tarjeta.
