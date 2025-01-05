@@ -5,6 +5,7 @@ export class Home {
   // Atributos
   featuredProducts = '.features_items .col-sm-4 .product-image-wrapper'
   modalContent = '.modal-content'
+  navbar = '[class="nav navbar-nav"]'
 
   // Getters
   getFeaturedProducts() {
@@ -12,6 +13,9 @@ export class Home {
   }
   getModalContent(){
     return cy.get(this.modalContent)
+  }
+  getNavbar(){
+    return cy.get(this.navbar)
   }
 
   // Metodos

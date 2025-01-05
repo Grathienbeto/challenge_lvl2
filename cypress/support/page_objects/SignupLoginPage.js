@@ -3,6 +3,9 @@ export class SignupLoginPage {
   newUserNameInput = '[data-qa="signup-name"]'
   newUserEmailInput = '[data-qa="signup-email"]'
   newUserSignupBtn = '[data-qa="signup-button"]'
+  loginEmailInput = '[data-qa="login-email"]'
+  passwordInput = '[data-qa="login-password"]'
+  loginBtn = '[data-qa="login-button"]'
 
   // Getters
   getNewUserNameInput() {
@@ -13,6 +16,15 @@ export class SignupLoginPage {
   }
   getNewUserSignupBtn() {
     return cy.get(this.newUserSignupBtn)
+  }
+  getLoginEmailInput() {
+    return cy.get(this.loginEmailInput)
+  }
+  getPasswordInput(){
+    return cy.get(this.passwordInput)
+  }
+  getLoginBtn() {
+    return cy.get(this.loginBtn)
   }
 
   // Metodos
@@ -26,6 +38,17 @@ export class SignupLoginPage {
     this.getNewUserNameInput().type(name)
     this.getNewUserEmailInput().type(email)
     this.getNewUserSignupBtn().click()
+  }
+
+  /**
+  * Loguea en una cuenta ya creada con datos correctos
+  * @param {str} email 
+  * @param {str} password 
+  */
+  login(email, password) {
+    this.getLoginEmailInput().type(email)
+    this.getPasswordInput().type(password)
+    this.getLoginBtn().click()
   }
 }
 

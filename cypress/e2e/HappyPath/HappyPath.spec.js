@@ -10,12 +10,12 @@ describe("Happy path tests", () => {
   let random = Math.floor(Math.random() * 99999)
   const name = `usuario prueba ${random}`
   const email = `usuario${random}@prueba.com`
-
+  
   beforeEach("Ir a la pagina", () => {
     cy.visitApp();
   });
 
-  it.only("1. Crear cuenta de usuario", () => {
+  it("1. Crear cuenta de usuario", () => {
     // Pasos
     navigateTo.signupLoginPage()
     onSignupLoginPage.newUserSignUp(name, email)
@@ -33,6 +33,7 @@ describe("Happy path tests", () => {
 
     // Completar cuenta usuario
     onSignupPage.getPassword().type('1234567password')
+    
     onSignupPage.getDay().select(1)
     onSignupPage.getMonth().select(5)
     onSignupPage.getYear().select(22)
@@ -78,6 +79,16 @@ describe("Happy path tests", () => {
     // Assertions
     onProductReview.getReviewModal().should('exist')
     // agregar assertion sobre el texto
+  })
+
+  it("4. Loguear con una cuenta ya creada y datos correctos", () => {
+    const cuenta = "usuario36939@prueba.com"
+    const password = '1234567password'
+
+    navigateTo.signupLoginPage()
+    onSignupLoginPage.login(cuenta, password)
+
+    onHome.getNavbar().should('contain', 'Logged in as usuario prueba 36939')
   })
 
 })
