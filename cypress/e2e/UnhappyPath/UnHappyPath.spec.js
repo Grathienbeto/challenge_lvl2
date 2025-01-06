@@ -49,17 +49,32 @@ describe("UnHappy path tests", () => {
       })
     })
     
-    
   })
 
-  it('14. Agregar un metodo de pago invalido (fecha de vencimiento de tarjeta caducada)', () => {
+  it.only('14. Agregar un metodo de pago invalido (fecha de vencimiento de tarjeta caducada)', () => {
     // Pasos
-    /**
     navigateTo.signupLoginPage()
     onSignupLoginPage.login(cuenta, password)
     onHome.addItemToCart(2, false)
     onCart.getCheckoutBtn().click()
-     */
+    onCart.getPlaceOrderBtn().click()
+
+    // Datos
+    onCart.getNameOnCard().type(name)
+    onCart.getCardNumber().type('1111222233334444')
+    onCart.getCVC().type('000')
+    onCart.getExpirationMonth().type('01')
+    onCart.getExpirationYear().type('2023')
+    onCart.getPayOrderBtn().click()
+
+    // Assertions
+    cy.wait(4000)
+    cy.location().should((loc) => {
+      expect(loc.pathname.toString()).to.not.contain("/payment_done");
+    });
+    onCart.getOrderPlaced().should('not.contain', "ORDER PLACED!")
+    onCart.getOrderPlaced().should('not.exist')
+    
   })
 
 })
