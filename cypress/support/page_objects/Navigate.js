@@ -1,6 +1,7 @@
 export class Navigate {
   // Atributos
   home = '[class="fa fa-home"]'
+  cart = 'ul.nav.navbar-nav [class="fa fa-shopping-cart"]'
   products = '[class="material-icons card_travel"]'
   signupLoginLink = '[class="fa fa-lock"]'
 
@@ -14,10 +15,16 @@ export class Navigate {
   getProducts(){
     return cy.get(this.products)
   }
+  getCart(){
+    return cy.get(this.cart)
+  }
 
   // Metodos
   homePage(){
     this.gethome().click()
+  }
+  cartPage(){
+    this.getCart().click()
   }
   signupLoginPage() {
     this.getSingupLoginLink().click()

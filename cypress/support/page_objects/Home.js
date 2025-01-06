@@ -33,10 +33,12 @@ export class Home {
   /**
    * Agrega un item al carrito
    * Luego se dirige a la pagina del carrito mediante el modal
-   * Extrae el nombre del item del carrito y lo compara con la del producto agregado
+   * Extrae el nombre del item del carrito y lo compara con la del producto agregado.
+   * verification false significa que no va a hacer el assertion sobre el item del carrito
    * @param {int} number 
+   * @param {bool} verification
    */
-  addItemToCart(number){
+  addItemToCart(number, verification=true){
     number -= 1
 
     this.getFeaturedProducts().eq(number).find('p').first().then($item => {
@@ -46,11 +48,12 @@ export class Home {
 
       this.getModalContent().find('a').click()
 
-      onCart.getCartItem().eq(1).find('.cart_description a').then($cartItem =>{
-        let cartItem = $cartItem.text()
-        expect(itemName.trim()).to.equal(cartItem.trim())
-      })
-
+      if (verification) {
+        onCart.getCartItem().eq(1).find('.cart_description a').then($cartItem =>{
+          let cartItem = $cartItem.text()
+          expect(itemName.trim()).to.equal(cartItem.trim())
+        })
+      }
     })
   }
 

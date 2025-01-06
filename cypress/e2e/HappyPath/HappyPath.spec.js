@@ -1,8 +1,9 @@
-import { onHome } from "../../support/page_objects/Home";
 import { navigateTo } from "../../support/page_objects/Navigate";
+import { onHome } from "../../support/page_objects/Home";
 import { onProductReview } from "../../support/page_objects/ProductReview";
 import { onSignupLoginPage } from "../../support/page_objects/SignupLoginPage";
 import { onSignupPage } from "../../support/page_objects/SignupPage";
+import { onCart } from "../../support/page_objects/Cart";
 
 describe("Happy path tests", () => {
 
@@ -10,6 +11,8 @@ describe("Happy path tests", () => {
   let random = Math.floor(Math.random() * 99999)
   const name = `usuario prueba ${random}`
   const email = `usuario${random}@prueba.com`
+  const cuenta = "usuario36939@prueba.com"
+  const password = '1234567password'
   
   beforeEach("Ir a la pagina", () => {
     cy.visitApp();
@@ -57,7 +60,7 @@ describe("Happy path tests", () => {
     
   })
 
-  it("2. Agregar un item a el carrito", () => {
+  it("2. Agregar un item al carrito", () => {
     // Datos de prueba
     // Longitud actual de la lista de items es de 34, al 27/12/2024
     const number = 2
@@ -82,13 +85,31 @@ describe("Happy path tests", () => {
   })
 
   it("4. Loguear con una cuenta ya creada y datos correctos", () => {
-    const cuenta = "usuario36939@prueba.com"
-    const password = '1234567password'
 
     navigateTo.signupLoginPage()
     onSignupLoginPage.login(cuenta, password)
 
     onHome.getNavbar().should('contain', 'Logged in as usuario prueba 36939')
+  })
+
+  it("5. Vaciar el carrito de compras", () => {
+    
+    // Pasos
+    navigateTo.signupLoginPage()
+    onSignupLoginPage.login(cuenta, password)
+    onHome.addItemToCart(2, false)
+    navigateTo.homePage()
+    onHome.addItemToCart(4, false)
+    navigateTo.homePage()
+    onHome.addItemToCart(6, false)
+    navigateTo.cartPage()
+    onCart.emptyCart()
+    cy.wait(500)
+
+    // Assertions
+    onCart.getEmptySpan().should('exist')
+    onCart.getEmptySpan().should('contain', 'Cart is empty! Click here to buy products.')
+  
   })
 
 })
