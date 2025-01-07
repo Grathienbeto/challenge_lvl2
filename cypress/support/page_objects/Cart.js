@@ -5,6 +5,8 @@ export class Cart {
   checkoutBtn = '[class="col-sm-6"] [class="btn btn-default check_out"]'
   cartItems = 'tbody'
   emptySpan = '[id="empty_cart"]'
+  
+  modalContent = '[class="modal-content"]'
 
   placeOrderBtn = '[class="btn btn-default check_out"]'
 
@@ -15,6 +17,7 @@ export class Cart {
   expirationYear = '[data-qa="expiry-year"]'
   payOrderBtn = '[data-qa="pay-button"]'
   orderPlaced = '[data-qa="order-placed"]'
+
 
   // Getters
   getCartItem() {
@@ -52,6 +55,9 @@ export class Cart {
   }
   getOrderPlaced() {
     return cy.get(this.orderPlaced)
+  }
+  getModalContent() {
+    return cy.get(this.modalContent)
   }
 
   // Metodos

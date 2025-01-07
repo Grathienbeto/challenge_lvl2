@@ -8,11 +8,11 @@ import { onCart } from "../../support/page_objects/Cart";
 describe("Happy path tests", () => {
 
   // DATOS DE PRUEBA COMUNES (HACERLOS DE ENVIRONMENT) usados de momento en 1 y 3
-  let random = Math.floor(Math.random() * 99999)
+  const random = Math.floor(Math.random() * 99999)
   const name = `usuario prueba ${random}`
   const email = `usuario${random}@prueba.com`
-  const cuenta = "usuario36939@prueba.com"
-  const password = '1234567password'
+  const cuenta = Cypress.env("userAccount")
+  const clave = Cypress.env("password")
   
   beforeEach("Ir a la pagina", () => {
     cy.visitApp();
@@ -23,10 +23,11 @@ describe("Happy path tests", () => {
     navigateTo.signupLoginPage()
     onSignupLoginPage.newUserSignUp(name, email)
     
-    // Assertions
+    // Assertion
     cy.location().should((loc) => {
       expect(loc.pathname.toString()).to.contain("/signup");
     });
+
     onSignupPage.getName().then(input => {
       cy.wrap(input[0].value).should('be.equal', name)
     })    
@@ -87,7 +88,7 @@ describe("Happy path tests", () => {
   it("4. Loguear con una cuenta ya creada y datos correctos", () => {
 
     navigateTo.signupLoginPage()
-    onSignupLoginPage.login(cuenta, password)
+    onSignupLoginPage.login(cuenta, clave)
 
     onHome.getNavbar().should('contain', 'Logged in as usuario prueba 36939')
   })
@@ -96,7 +97,7 @@ describe("Happy path tests", () => {
     
     // Pasos
     navigateTo.signupLoginPage()
-    onSignupLoginPage.login(cuenta, password)
+    onSignupLoginPage.login(cuenta, clave)
     onHome.addItemToCart(2, false)
     navigateTo.homePage()
     onHome.addItemToCart(4, false)
@@ -111,5 +112,47 @@ describe("Happy path tests", () => {
     onCart.getEmptySpan().should('contain', 'Cart is empty! Click here to buy products.')
   
   })
+
+  it("6. Log Out", () => {
+
+    navigateTo.signupLoginPage()
+    onSignupLoginPage.login(cuenta, clave)
+    onHome.getNavbar().should('contain', 'Logged in as usuario prueba 85897')
+
+    onHome.getLogout().should('exist')
+    
+    onHome.getLogout().click()
+
+    cy.wait(1000)
+    onHome.getNavbar().should('not.contain', 'Logged in as usuario prueba 85897')
+    onHome.getNavbar().should('not.contain', 'Logout')
+  })
+
+  it("7. Test de navegacion de items del nav-bar", () => {
+    navigateTo.productsPage()
+    navigateTo.checkCorrectPage('products')
+
+    navigateTo.cartPage()
+    navigateTo.checkCorrectPage('view_cart')
+
+    navigateTo.signupLoginPage()
+    navigateTo.checkCorrectPage('login')
+
+    navigateTo.contactPage()
+    navigateTo.checkCorrectPage('contact_us')
+  })
+
+  it.only("8. API Testing: Crear y registrar una cuenta de usuario", () => {
+
+  })
+
+  it("9. API Testing: Verificar el login con datos validos", () => {
+
+  })
+
+  it("10. API TESTING: Agregar un item al carrito", () => {
+    
+  })
+
 
 })

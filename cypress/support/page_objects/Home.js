@@ -5,6 +5,8 @@ export class Home {
   featuredProducts = '.features_items .col-sm-4 .product-image-wrapper'
   modalContent = '.modal-content'
   navbar = '[class="nav navbar-nav"]'
+  logout = '[class="fa fa-lock"]'
+
 
   // Getters
   getFeaturedProducts() {
@@ -15,6 +17,9 @@ export class Home {
   }
   getNavbar(){
     return cy.get(this.navbar)
+  }
+  getLogout(){
+    return cy.get(this.logout)
   }
 
   // Metodos

@@ -58,7 +58,6 @@ export class ProductReview {
   addItemToCart(amount){
     this.getItemQuantity().clear().type(amount)
     this.getAddToCartBtn().click()
-        
   }
 
 }

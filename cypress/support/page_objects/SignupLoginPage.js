@@ -6,6 +6,7 @@ export class SignupLoginPage {
   loginEmailInput = '[data-qa="login-email"]'
   passwordInput = '[data-qa="login-password"]'
   loginBtn = '[data-qa="login-button"]'
+  errorMessage = '[class="login-form"] p'
 
   // Getters
   getNewUserNameInput() {
@@ -25,6 +26,9 @@ export class SignupLoginPage {
   }
   getLoginBtn() {
     return cy.get(this.loginBtn)
+  }
+  getErrorMesssage() {
+    return cy.get(this.errorMessage)
   }
 
   // Metodos

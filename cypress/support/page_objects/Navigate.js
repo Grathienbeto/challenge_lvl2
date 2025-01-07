@@ -4,6 +4,7 @@ export class Navigate {
   cart = 'ul.nav.navbar-nav [class="fa fa-shopping-cart"]'
   products = '[class="material-icons card_travel"]'
   signupLoginLink = '[class="fa fa-lock"]'
+  contact = '[class="fa fa-envelope"]'
 
   // Getters
   gethome(){
@@ -18,6 +19,9 @@ export class Navigate {
   getCart(){
     return cy.get(this.cart)
   }
+  getContact(){
+    return cy.get(this.contact)
+  }
 
   // Metodos
   homePage(){
@@ -31,6 +35,15 @@ export class Navigate {
   }
   productsPage(){
     this.getProducts().click()
+  }
+  contactPage(){
+    this.getContact().click()
+  }
+
+  checkCorrectPage(url){
+    cy.location().should((loc) => {
+      expect(loc.pathname.toString()).to.contain(`/${url}`);
+    });
   }
 }
 
