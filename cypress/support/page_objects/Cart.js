@@ -1,15 +1,11 @@
 export class Cart {
-
   // Atributos
   cartItem = '[id="cart_info_table"] tr'
   checkoutBtn = '[class="col-sm-6"] [class="btn btn-default check_out"]'
   cartItems = 'tbody'
   emptySpan = '[id="empty_cart"]'
-  
   modalContent = '[class="modal-content"]'
-
   placeOrderBtn = '[class="btn btn-default check_out"]'
-
   nameOnCard = '[data-qa="name-on-card"]'
   cardNumber = '[data-qa="card-number"]'
   cvc = '[data-qa="cvc"]'
@@ -60,6 +56,7 @@ export class Cart {
     return cy.get(this.modalContent)
   }
 
+  
   // Metodos
   /**
    * Vacia el carrito de compras

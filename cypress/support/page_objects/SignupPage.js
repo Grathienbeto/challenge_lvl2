@@ -17,6 +17,7 @@ export class SignupPage {
   mobile = '[data-qa="mobile_number"]'
   create_btn = '[data-qa="create-account"]'
 
+
   // Getters
   getName() {
     return cy.get(this.name)
@@ -66,9 +67,6 @@ export class SignupPage {
   getCreateBtn(){
     return cy.get(this.create_btn)
   }
-
-
-  // Metodos
 
 }
 

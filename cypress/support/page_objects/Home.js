@@ -7,6 +7,7 @@ export class Home {
   navbar = '[class="nav navbar-nav"]'
   logout = '[class="fa fa-lock"]'
 
+
   // Getters
   getFeaturedProducts() {
     return cy.get(this.featuredProducts)
@@ -21,9 +22,11 @@ export class Home {
     return cy.get(this.logout)
   }
 
+
   // Metodos
 
   // Comunes
+  
   /**
    * Se dirije a la pagina de producto de un item {index}
    * @param {int} index 
@@ -33,7 +36,9 @@ export class Home {
     this.getFeaturedProducts().eq(index).find('a').contains('View Product').click()
   }
 
+
   // Pruebas
+
   /**
    * Agrega un item al carrito
    * Luego se dirige a la pagina del carrito mediante el modal
@@ -60,6 +65,7 @@ export class Home {
       }
     })
   }
+
 
   /**
    * Verifica que las tarjetas de los productos tengan las mismas dimensiones, comparandolos con la primer tarjeta.
@@ -89,10 +95,8 @@ export class Home {
       else {
         this.checkIfAllCardsHaveSameDimensions(index, expectedHeight, expectedWidth)
       }
-
     })
   }
-
 
 }
 

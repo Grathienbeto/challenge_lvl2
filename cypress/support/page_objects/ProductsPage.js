@@ -4,6 +4,7 @@ export class ProductsPage {
   searchBtn = '[id="submit_search"]'
   featuredItems = '[class="features_items"]'
 
+  
   // Getters
   getSearchProductInput(){
     return cy.get(this.searchProductInput)
@@ -14,6 +15,7 @@ export class ProductsPage {
   getFeaturedItems(){
     return cy.get(this.featuredItems)
   }
+
 
   // Metodos
 

@@ -9,6 +9,7 @@ export class ProductReview {
   addToCartBtn = '[class="btn btn-default cart"]'
   modalContent = '.modal-content'
 
+
   // Getters
   getReviewName(){
     return cy.get(this.reviewName)
@@ -51,6 +52,7 @@ export class ProductReview {
     this.getReviewBtn().click()
   }
 
+  
   /**
    * Agrega un {amount} cantidad de items al carrito
    * @param {int} amount 

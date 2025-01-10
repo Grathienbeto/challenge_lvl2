@@ -38,11 +38,9 @@ describe("Happy path tests", () => {
 
     // Completar cuenta usuario
     onSignupPage.getPassword().type('1234567password')
-    
     onSignupPage.getDay().select(1)
     onSignupPage.getMonth().select(5)
     onSignupPage.getYear().select(22)
-
     onSignupPage.getFirstName().type("Juan Jose")
     onSignupPage.getLastName().type("Martinez")
     onSignupPage.getCompany().type('Pi Consulting')
@@ -52,7 +50,6 @@ describe("Happy path tests", () => {
     onSignupPage.getCity().type("Bag End City")
     onSignupPage.getZip().type('X1234')
     onSignupPage.getMobile().type('0303456')
-
     onSignupPage.getCreateBtn().click()
 
     // Assertions
@@ -63,8 +60,8 @@ describe("Happy path tests", () => {
   })
 
   it("2. Agregar un item al carrito", () => {
-    // Datos de prueba
     // Longitud actual de la lista de items es de 34, al 27/12/2024
+    // Datos
     const number = 2
 
     // Pasos
@@ -73,7 +70,7 @@ describe("Happy path tests", () => {
   })
 
   it("3. Dejar una review en un producto", () => {
-    // Datos de pruebas
+    // Datos
     const productItem = 3
     const review = "This is a test review"
 
@@ -83,19 +80,19 @@ describe("Happy path tests", () => {
 
     // Assertions
     onProductReview.getReviewModal().should('exist')
-    // agregar assertion sobre el texto
+    onProductReview.getReviewModal().should('contain', 'Thank you for your review.')
   })
 
   it("4. Loguear con una cuenta ya creada y datos correctos", () => {
-
+    // Pasos
     navigateTo.signupLoginPage()
     onSignupLoginPage.login(cuenta, clave)
 
-    onHome.getNavbar().should('contain', 'Logged in as usuario prueba 36939')
+    // Assertion
+    onHome.getNavbar().should('contain', 'Logged in as usuario prueba 85897')
   })
 
   it("5. Vaciar el carrito de compras", () => {
-    
     // Pasos
     navigateTo.signupLoginPage()
     onSignupLoginPage.login(cuenta, clave)
@@ -111,25 +108,27 @@ describe("Happy path tests", () => {
     // Assertions
     onCart.getEmptySpan().should('exist')
     onCart.getEmptySpan().should('contain', 'Cart is empty! Click here to buy products.')
-  
   })
 
   it("6. Log Out", () => {
-
+    // Pasos
     navigateTo.signupLoginPage()
     onSignupLoginPage.login(cuenta, clave)
     onHome.getNavbar().should('contain', 'Logged in as usuario prueba 85897')
 
+    // Assertion
     onHome.getLogout().should('exist')
     
     onHome.getLogout().click()
 
+    // Assertion
     cy.wait(1000)
     onHome.getNavbar().should('not.contain', 'Logged in as usuario prueba 85897')
     onHome.getNavbar().should('not.contain', 'Logout')
   })
 
   it("7. Test de navegacion de items del nav-bar", () => {
+    // Pasos y Assertions
     navigateTo.productsPage()
     navigateTo.checkCorrectPage('products')
 
@@ -143,8 +142,9 @@ describe("Happy path tests", () => {
     navigateTo.checkCorrectPage('contact_us')
   })
 
+  // Ultimos tres casos sacados de los tests de API de la pagina AutomationExcercice.
   it("8. API 7: POST To Verify Login with valid details", () => {
-
+    // Pasos
     cy.request({
       method: 'POST',
       url: `${apiUrl}/verifyLogin`,
@@ -156,6 +156,7 @@ describe("Happy path tests", () => {
     }).then(
       (response) => {
         const responseBody = JSON.parse(response.body)
+        // Assertion
         expect(responseBody.responseCode).to.equal(200)
         expect(responseBody.message).to.equal("User exists!")
       }
@@ -163,6 +164,7 @@ describe("Happy path tests", () => {
   })
 
   it("9. API 5: POST To Search Product", () => {
+    // Pasos
     cy.request({
       method: 'POST',
       url: `${apiUrl}/searchProduct`,
@@ -173,6 +175,7 @@ describe("Happy path tests", () => {
     })
     .then(response => {
       const responseBody = JSON.parse(response.body)
+      // Assertion
       expect(responseBody.responseCode).to.equal(200)
       
       responseBody.products.forEach(elem => {
@@ -182,12 +185,14 @@ describe("Happy path tests", () => {
   })
 
   it("10. API 3: Get All Brands List", () => {
+    // Pasos
     cy.request({
       method: "GET",
       url: `${apiUrl}/brandsList`
     })
     .then(response => {
       const responseBody = JSON.parse(response.body)
+      // Assertion
       expect(responseBody.responseCode).to.equal(200)
       expect(responseBody.brands.length).to.equal(34)
     })

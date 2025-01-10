@@ -8,6 +8,7 @@ export class SignupLoginPage {
   loginBtn = '[data-qa="login-button"]'
   errorMessage = '[class="login-form"] p'
 
+
   // Getters
   getNewUserNameInput() {
     return cy.get(this.newUserNameInput)
@@ -31,6 +32,7 @@ export class SignupLoginPage {
     return cy.get(this.errorMessage)
   }
 
+
   // Metodos
   
   /**
@@ -44,6 +46,7 @@ export class SignupLoginPage {
     this.getNewUserSignupBtn().click()
   }
 
+
   /**
   * Loguea en una cuenta
   * @param {str} email 
@@ -54,6 +57,7 @@ export class SignupLoginPage {
     this.getPasswordInput().type(password)
     this.getLoginBtn().click()
   }
+  
 }
 
 export const onSignupLoginPage = new SignupLoginPage()

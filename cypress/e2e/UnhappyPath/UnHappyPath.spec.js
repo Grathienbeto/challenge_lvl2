@@ -8,10 +8,11 @@ import { onContact } from "../../support/page_objects/Contact";
 
 describe("UnHappy path tests", () => {
 
-  // DATOS DE PRUEBA COMUNES (HACERLOS DE ENVIRONMENT) usados de momento en 1 y 3
-  const random = Math.floor(Math.random() * 99999)
+  // DATOS DE PRUEBA COMUNES
+  const random = Math.floor(Math.random() * 99999) 
   const name = `usuario prueba ${random}`
   const email = `usuario${random}@prueba.com`
+
   const cuenta = Cypress.env("userAccount")
   const clave = Cypress.env("password")
   const apiUrl = Cypress.env("apiUrl")
@@ -21,6 +22,7 @@ describe("UnHappy path tests", () => {
   });
 
   it("11. Todas las tarjetas de productos destacados tengan mismo tamaño", () => {
+    // Pasos
     onHome.checkIfAllCardsHaveSameDimensions()
   })
 
@@ -37,6 +39,7 @@ describe("UnHappy path tests", () => {
   })
 
   it('13. Encontrar productos usando el buscador', () => {
+    // Datos
     let product = 'dress'
 
     // Pasos
@@ -80,8 +83,8 @@ describe("UnHappy path tests", () => {
   })
 
   it("15. En 'Contact Us', intentar mandar un mensaje sin completar el formulario (Campo 'Email' vacio)", () => {
+    // Pasos
     navigateTo.contactPage()
-
     onContact.getName().type(name)
     onContact.getSubject().type("Caso de prueba")
     onContact.getMessage().type('Mensaje de prueba')
@@ -95,21 +98,27 @@ describe("UnHappy path tests", () => {
   })
 
   it("16. Loguear con cuenta correcta y contraseña incorrecta", () => {
+    // Pasos
     navigateTo.signupLoginPage()
     onSignupLoginPage.login(cuenta, 'passwordIncorrecta123')
 
+    // Assertions
     onSignupLoginPage.getErrorMesssage().should('exist')
     onSignupLoginPage.getErrorMesssage().should('contain', 'Your email or password is incorrect!')
   })
 
   it("17. Intentar comprar un producto sin estar logueado a la cuenta", () => {
+    // Pasos
     onHome.addItemToCart(2, false)
     onCart.getPlaceOrderBtn().click()
 
+    // Assert
     onCart.getModalContent().find('p').last().should('contain', 'Register / Login')
   })
 
+  // Ultimos tres casos sacados de los tests de API de la pagina AutomationExcercice.
   it("18. API 8: POST To Verify Login without email parameter", () => {
+    // Pasos
     cy.request({
       method: 'POST',
       url: `${apiUrl}/verifyLogin`,
@@ -121,6 +130,7 @@ describe("UnHappy path tests", () => {
       (response) => {
         const responseBody = JSON.parse(response.body)
 
+        // Assertions
         expect(responseBody.responseCode).to.equal(400)
         expect(responseBody.message).to.equal("Bad request, email or password parameter is missing in POST request.")
       }
@@ -128,6 +138,7 @@ describe("UnHappy path tests", () => {
   })
  
   it("19. API 6: POST To Search Product without search_product parameter", () => {
+    // Pasos
     cy.request({
       method: 'POST',
       url: `${apiUrl}/searchProduct`,
@@ -135,19 +146,21 @@ describe("UnHappy path tests", () => {
     })
     .then(response => {
       const responseBody = JSON.parse(response.body)
+      // Assertions
       expect(responseBody.responseCode).to.equal(400)
       expect(responseBody.message).to.equal("Bad request, search_product parameter is missing in POST request.")  
     })
   })
 
   it("20. API 4: PUT To All Brands List", () => {
-    
+    // Pasos
     cy.request({
       method: "PUT",
       url: `${apiUrl}/brandsList`
     })
     .then(response => {
       const responseBody = JSON.parse(response.body)
+      // Assertions
       expect(responseBody.responseCode).to.equal(405)
       expect(responseBody.message).to.equal('This request method is not supported.')
     })

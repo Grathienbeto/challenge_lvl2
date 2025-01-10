@@ -23,6 +23,7 @@ export class Navigate {
     return cy.get(this.contact)
   }
 
+
   // Metodos
   homePage(){
     this.gethome().click()
@@ -40,6 +41,8 @@ export class Navigate {
     this.getContact().click()
   }
 
+
+  // Metodos
   checkCorrectPage(url){
     cy.location().should((loc) => {
       expect(loc.pathname.toString()).to.contain(`/${url}`);
