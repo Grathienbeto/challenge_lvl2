@@ -9,13 +9,14 @@ import { onContact } from "../../support/page_objects/Contact";
 describe("UnHappy path tests", () => {
 
   // DATOS DE PRUEBA COMUNES (HACERLOS DE ENVIRONMENT) usados de momento en 1 y 3
-  let random = Math.floor(Math.random() * 99999)
+  const random = Math.floor(Math.random() * 99999)
   const name = `usuario prueba ${random}`
   const email = `usuario${random}@prueba.com`
-  const cuenta = "usuario36939@prueba.com"
-  const password = '1234567password'
+  const cuenta = Cypress.env("userAccount")
+  const clave = Cypress.env("password")
+  const apiUrl = Cypress.env("apiUrl")
 
-  beforeEach("Ir a la pagina", () => {
+  beforeEach("Ir a la pagina Home del sitio", () => {
     cy.visitApp();
   });
 
@@ -55,7 +56,7 @@ describe("UnHappy path tests", () => {
   it('14. Agregar un metodo de pago invalido (fecha de vencimiento de tarjeta caducada)', () => {
     // Pasos
     navigateTo.signupLoginPage()
-    onSignupLoginPage.login(cuenta, password)
+    onSignupLoginPage.login(cuenta, clave)
     onHome.addItemToCart(2, false)
     onCart.getCheckoutBtn().click()
     onCart.getPlaceOrderBtn().click()
@@ -94,10 +95,8 @@ describe("UnHappy path tests", () => {
   })
 
   it("16. Loguear con cuenta correcta y contraseña incorrecta", () => {
-    const email = Cypress.env("userAccount")
-
     navigateTo.signupLoginPage()
-    onSignupLoginPage.login(email, 'passwordIncorrecta123')
+    onSignupLoginPage.login(cuenta, 'passwordIncorrecta123')
 
     onSignupLoginPage.getErrorMesssage().should('exist')
     onSignupLoginPage.getErrorMesssage().should('contain', 'Your email or password is incorrect!')
@@ -110,15 +109,49 @@ describe("UnHappy path tests", () => {
     onCart.getModalContent().find('p').last().should('contain', 'Register / Login')
   })
 
-  it.only("18. API TESTING: POST To Verify Login with invalid details", () => {
+  it("18. API 8: POST To Verify Login without email parameter", () => {
+    cy.request({
+      method: 'POST',
+      url: `${apiUrl}/verifyLogin`,
+      form: true,
+      body: {
+        password: clave
+      }
+    }).then(
+      (response) => {
+        const responseBody = JSON.parse(response.body)
 
+        expect(responseBody.responseCode).to.equal(400)
+        expect(responseBody.message).to.equal("Bad request, email or password parameter is missing in POST request.")
+      }
+    )
   })
  
-  it("19. API TESTING: POST To Search Product without search_product parameter", () => {
+  it("19. API 6: POST To Search Product without search_product parameter", () => {
+    cy.request({
+      method: 'POST',
+      url: `${apiUrl}/searchProduct`,
+      form: true,
+    })
+    .then(response => {
+      const responseBody = JSON.parse(response.body)
+      expect(responseBody.responseCode).to.equal(400)
+      expect(responseBody.message).to.equal("Bad request, search_product parameter is missing in POST request.")  
+    })
   })
 
-  it("20. POST To Verify Login without email parameter", () => {
+  it("20. API 4: PUT To All Brands List", () => {
     
+    cy.request({
+      method: "PUT",
+      url: `${apiUrl}/brandsList`
+    })
+    .then(response => {
+      const responseBody = JSON.parse(response.body)
+      expect(responseBody.responseCode).to.equal(405)
+      expect(responseBody.message).to.equal('This request method is not supported.')
+    })
+
   })
 
 })

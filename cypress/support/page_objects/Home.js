@@ -7,7 +7,6 @@ export class Home {
   navbar = '[class="nav navbar-nav"]'
   logout = '[class="fa fa-lock"]'
 
-
   // Getters
   getFeaturedProducts() {
     return cy.get(this.featuredProducts)

@@ -17,8 +17,6 @@ export class SignupPage {
   mobile = '[data-qa="mobile_number"]'
   create_btn = '[data-qa="create-account"]'
 
-  
-
   // Getters
   getName() {
     return cy.get(this.name)

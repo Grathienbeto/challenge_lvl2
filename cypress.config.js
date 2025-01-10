@@ -8,6 +8,7 @@ module.exports = defineConfig({
   // variables de entorno
   env: {
     baseUrl: "https://automationexercise.com",
+    apiUrl: "https://automationexercise.com/api"
   },
 
   // para establecer los nombres de los archivos (.spec.js)

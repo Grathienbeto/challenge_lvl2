@@ -13,8 +13,9 @@ describe("Happy path tests", () => {
   const email = `usuario${random}@prueba.com`
   const cuenta = Cypress.env("userAccount")
   const clave = Cypress.env("password")
+  const apiUrl = Cypress.env("apiUrl")
   
-  beforeEach("Ir a la pagina", () => {
+  beforeEach("Ir a la pagina Home del sitio", () => {
     cy.visitApp();
   });
 
@@ -142,17 +143,53 @@ describe("Happy path tests", () => {
     navigateTo.checkCorrectPage('contact_us')
   })
 
-  it.only("8. API Testing: Crear y registrar una cuenta de usuario", () => {
+  it("8. API 7: POST To Verify Login with valid details", () => {
 
+    cy.request({
+      method: 'POST',
+      url: `${apiUrl}/verifyLogin`,
+      form: true,
+      body: {
+        email: cuenta,
+        password: clave
+      }
+    }).then(
+      (response) => {
+        const responseBody = JSON.parse(response.body)
+        expect(responseBody.responseCode).to.equal(200)
+        expect(responseBody.message).to.equal("User exists!")
+      }
+    )
   })
 
-  it("9. API Testing: Verificar el login con datos validos", () => {
-
+  it("9. API 5: POST To Search Product", () => {
+    cy.request({
+      method: 'POST',
+      url: `${apiUrl}/searchProduct`,
+      form: true,
+      body: {
+        search_product: 'dress'
+      }
+    })
+    .then(response => {
+      const responseBody = JSON.parse(response.body)
+      expect(responseBody.responseCode).to.equal(200)
+      
+      responseBody.products.forEach(elem => {
+        expect(elem.category.category).to.equal('Dress')
+      })
+    })
   })
 
-  it("10. API TESTING: Agregar un item al carrito", () => {
-    
+  it("10. API 3: Get All Brands List", () => {
+    cy.request({
+      method: "GET",
+      url: `${apiUrl}/brandsList`
+    })
+    .then(response => {
+      const responseBody = JSON.parse(response.body)
+      expect(responseBody.responseCode).to.equal(200)
+      expect(responseBody.brands.length).to.equal(34)
+    })
   })
-
-
 })

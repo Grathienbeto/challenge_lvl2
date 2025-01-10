@@ -26,7 +26,6 @@ export class ProductsPage {
     this.getSearchBtn().click()
   }
 
-
 }
 
 export const onProductsPage = new ProductsPage()
