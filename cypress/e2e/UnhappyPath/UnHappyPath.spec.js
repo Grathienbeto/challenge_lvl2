@@ -20,7 +20,7 @@ describe("UnHappy path tests", () => {
     cy.visitApp();
   });
 
-  it("11. Todas las tarjetas de productos destacados tengan mismo tamaño", () => {
+  it.only("11. Todas las tarjetas de productos destacados tengan mismo tamaño", () => {
     // Pasos
     onHome.checkIfAllCardsHaveSameDimensions()
   })
