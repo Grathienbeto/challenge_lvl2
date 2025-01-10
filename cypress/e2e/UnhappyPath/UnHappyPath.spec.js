@@ -12,7 +12,6 @@ describe("UnHappy path tests", () => {
   const random = Math.floor(Math.random() * 99999) 
   const name = `usuario prueba ${random}`
   const email = `usuario${random}@prueba.com`
-
   const cuenta = Cypress.env("userAccount")
   const clave = Cypress.env("password")
   const apiUrl = Cypress.env("apiUrl")

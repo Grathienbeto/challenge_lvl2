@@ -7,7 +7,7 @@ import { onCart } from "../../support/page_objects/Cart";
 
 describe("Happy path tests", () => {
 
-  // DATOS DE PRUEBA COMUNES (HACERLOS DE ENVIRONMENT) usados de momento en 1 y 3
+  // DATOS DE PRUEBA COMUNES
   const random = Math.floor(Math.random() * 99999)
   const name = `usuario prueba ${random}`
   const email = `usuario${random}@prueba.com`
@@ -25,9 +25,7 @@ describe("Happy path tests", () => {
     onSignupLoginPage.newUserSignUp(name, email)
     
     // Assertion
-    cy.location().should((loc) => {
-      expect(loc.pathname.toString()).to.contain("/signup");
-    });
+    navigateTo.checkCorrectPage("signup")
 
     onSignupPage.getName().then(input => {
       cy.wrap(input[0].value).should('be.equal', name)
@@ -53,9 +51,8 @@ describe("Happy path tests", () => {
     onSignupPage.getCreateBtn().click()
 
     // Assertions
-    cy.location().should((loc) => {
-      expect(loc.pathname.toString()).to.contain("/account_created");
-    });
+    navigateTo.checkCorrectPage('account_created')
+    cy.get('[data-qa="account-created"]').should('contain', "Account Created!")
     
   })
 

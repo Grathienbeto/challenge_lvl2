@@ -43,6 +43,10 @@ export class Navigate {
 
 
   // Metodos
+  /**
+   * Corrobora que el string suministrado se encuentre en el path de la URL
+   * @param {string} url 
+   */
   checkCorrectPage(url){
     cy.location().should((loc) => {
       expect(loc.pathname.toString()).to.contain(`/${url}`);
