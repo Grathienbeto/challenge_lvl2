@@ -1,0 +1,16 @@
+# Nombre del workflow
+name: Automation Workflow
+
+# Trigger, o en que momento o con que accion se va a ejecutar
+on: workflow_dispatch
+
+# Lista de trabajos y los pasos que van a realizar
+jobs:
+  first_job:
+    runs-on: ubuntu-latest 
+    steps:
+      - name: print hello
+        run: echo "Hello world"
+
+      - name: print bye
+        run: echo "goodbye"
