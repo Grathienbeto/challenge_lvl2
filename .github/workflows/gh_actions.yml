@@ -29,4 +29,4 @@ jobs:
 
       # Usar Cypress
       - name: Cypress run
-        run: npm run cypress:run
+        run: npm run cy:run
