@@ -1,11 +1,13 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
+  /*
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
     reportFilename: "[status]_[datetime]-[name]-report",
     html: true
   },
+  */
   // Configurar ancho y alto de pantalla
   viewportHeight: 1080,
   viewportWidth: 1920,
