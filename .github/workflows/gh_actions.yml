@@ -26,6 +26,8 @@ jobs:
       # Instalar dependencias
       - name: Install dependencies
         run: npm ci
+      - name: Dev dependencies
+        run: npm install --dev
 
       # Usar Cypress
       - name: Cypress run
