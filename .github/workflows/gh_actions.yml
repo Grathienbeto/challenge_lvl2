@@ -29,4 +29,4 @@ jobs:
 
       # Usar Cypress
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        run: npm run cypress:run
