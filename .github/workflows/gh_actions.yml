@@ -1,0 +1,32 @@
+# Nombre del workflow
+name: Automation Workflow
+
+# Trigger, o en que momento o con que accion se va a ejecutar
+# Voy a tener una sola rama, asi que solo con push es suficiente
+on: push
+
+# Lista de trabajos y los pasos que van a realizar
+jobs:
+  challenge:
+
+    # Version de OS en el que se va a correr
+    runs-on: ubuntu-latest 
+
+    steps:
+      # Descargar el codigo
+      - name: Download code
+        uses: actions/checkout@v4
+
+      # Descargar NodeJS
+      - name: Download NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Instalar dependencias
+      - name: Install dependencies
+        run: npm ci
+
+      # Usar Cypress
+      - name: Cypress run
+        uses: cypress-io/github-action@v6

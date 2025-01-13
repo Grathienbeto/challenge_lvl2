@@ -1,3 +1,4 @@
 node_modules
+
 # Dejo el archivo para ahorrar un paso, los datos del mismo son puramente de prueba
 # cypress.env.json
