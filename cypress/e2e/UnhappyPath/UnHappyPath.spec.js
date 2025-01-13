@@ -20,12 +20,12 @@ describe("UnHappy path tests", () => {
     cy.visitApp();
   });
 
-  it.only("11. Todas las tarjetas de productos destacados tengan mismo tamaño", () => {
+  it("11. Todas las tarjetas de productos destacados tengan mismo tamaño", () => {
     // Pasos
     onHome.checkIfAllCardsHaveSameDimensions()
   })
 
-  it('12. Agregar cantidades negativas de un producot, desde la pagina del producto', () => {
+  it('12. Agregar cantidades negativas de un producto, desde la pagina del producto', () => {
     // Pasos
     onHome.goToItemPage(1)
     onProductReview.addItemToCart(-1)

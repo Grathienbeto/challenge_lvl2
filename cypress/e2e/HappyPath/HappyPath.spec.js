@@ -56,7 +56,7 @@ describe("Happy path tests", () => {
     
   })
 
-  it.only("2. Agregar un item al carrito", () => {
+  it("2. Agregar un item al carrito", () => {
     // Longitud actual de la lista de items es de 34, al 27/12/2024
     // Datos
     const number = 2
