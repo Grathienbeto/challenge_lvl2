@@ -92,7 +92,7 @@ describe("UnHappy path tests", () => {
     // Assert para validar que aparezca el popup default del browser
     // https://docs.cypress.io/faq/questions/using-cypress-faq#Can-I-check-that-a-forms-HTML-form-validation-is-shown-when-an-input-is-invalid
     onContact.getEmail().then(($input) => {
-      expect($input[0].validationMessage).to.eq("Completa este campo");
+      expect($input[0].validationMessage).to.eq("Please fill out this field.");
     });
   })
 
