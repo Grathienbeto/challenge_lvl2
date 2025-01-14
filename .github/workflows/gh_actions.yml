@@ -3,7 +3,11 @@ name: Automation Workflow
 
 # Trigger, o en que momento o con que accion se va a ejecutar
 # Voy a tener una sola rama, asi que solo con push es suficiente
-on: push
+on: 
+  push:
+    branches: main
+  schedule:
+    - cron: "0 13 * * *"
 
 # Lista de trabajos y los pasos que van a realizar
 jobs:
