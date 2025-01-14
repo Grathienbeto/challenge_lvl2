@@ -2,7 +2,7 @@
 name: Automation Workflow
 
 # Trigger, o en que momento o con que accion se va a ejecutar
-# Voy a tener una sola rama, asi que solo con push es suficiente
+# Solo se realiza con el push en la rama main, debido a inconvenientes con la dependencia mochareports
 on: 
   push:
     branches: main
